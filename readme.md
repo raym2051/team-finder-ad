@@ -54,10 +54,10 @@ review12345
 
 Пользователи:
 
-- `alisa@teamfinder.local`
-- `timur@teamfinder.local`
-- `mira@teamfinder.local`
-- `gleb@teamfinder.local`
+- `test1@example.com`
+- `test2@example.com`
+- `test3@example.com`
+- `test4@example.com`
 
 ## Локальный запуск без Docker web-контейнера
 
