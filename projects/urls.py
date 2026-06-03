@@ -15,15 +15,7 @@ urlpatterns = [
     path("<int:project_id>/edit", views.edit_project, name="edit_project_no_slash"),
     path("<int:project_id>/edit/", views.edit_project, name="edit_project"),
     path("<int:project_id>/complete/", views.complete_project, name="complete_project"),
-    path(
-        "<int:project_id>/toggle-participate/",
-        views.toggle_participate,
-        name="toggle_participate",
-    ),
+    path("<int:project_id>/toggle-participate/", views.toggle_participate, name="toggle_participate",),
     path("<int:project_id>/skills/add/", views.add_project_skill, name="add_project_skill"),
-    path(
-        "<int:project_id>/skills/<int:skill_id>/remove/",
-        views.remove_project_skill,
-        name="remove_project_skill",
-    ),
+    path("<int:project_id>/skills/<int:skill_id>/remove/", views.remove_project_skill, name="remove_project_skill",),
 ]

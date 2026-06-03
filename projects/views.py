@@ -48,7 +48,11 @@ def project_detail(request, project_id):
         Project.objects.select_related("owner").prefetch_related("skills", "participants"),
         pk=project_id,
     )
-    return render(request, "projects/project-details.html", {"project": project})
+    return render(
+        request,
+        "projects/project-details.html",
+        {"project": project}
+    )
 
 
 @login_required

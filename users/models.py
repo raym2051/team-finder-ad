@@ -53,7 +53,11 @@ class User(AbstractUser):
         null=True,
     )
     about = models.TextField("о себе", blank=True)
-    phone = models.CharField("телефон", max_length=PHONE_MAX_LENGTH, blank=True)
+    phone = models.CharField(
+        "телефон",
+        max_length=PHONE_MAX_LENGTH,
+        blank=True
+    )
     github_url = models.URLField("GitHub", blank=True)
 
     USERNAME_FIELD = "email"

@@ -9,83 +9,100 @@ DEMO_PASSWORD = "review12345"
 
 USERS = [
     {
-        "email": "alisa@teamfinder.local",
-        "name": "Алиса",
-        "surname": "Соколова",
-        "phone": "+7 900 100-10-01",
-        "github_url": "https://github.com/alisa-sokolova",
-        "about": "Backend-разработчица, любит аккуратные API и понятные README.",
+        "email": "anna@teamfinder.local",
+        "name": "Анна",
+        "surname": "Морозова",
+        "phone": "+7 900 200-10-01",
+        "github_url": "https://github.com/anna-morozova",
+        "about": "Team Lead и архитектор микросервисов. Люблю Go и Python.",
     },
     {
-        "email": "timur@teamfinder.local",
-        "name": "Тимур",
-        "surname": "Валеев",
-        "phone": "+7 900 100-10-02",
-        "github_url": "https://github.com/timur-valeev",
-        "about": "Frontend-инженер, собирает интерфейсы для учебных и pet-проектов.",
+        "email": "dmitry@teamfinder.local",
+        "name": "Дмитрий",
+        "surname": "Волков",
+        "phone": "+7 900 200-10-02",
+        "github_url": "https://github.com/dmitry-volkov",
+        "about": "ML Engineer, строю нейросети для задач компьютерного зрения.",
     },
     {
-        "email": "mira@teamfinder.local",
-        "name": "Мира",
-        "surname": "Орлова",
-        "phone": "+7 900 100-10-03",
-        "github_url": "https://github.com/mira-orlova",
-        "about": "Product-minded дизайнер, помогает превращать идеи в понятные сценарии.",
+        "email": "elena@teamfinder.local",
+        "name": "Елена",
+        "surname": "Крылова",
+        "phone": "+7 900 200-10-03",
+        "github_url": "https://github.com/elena-krylova",
+        "about": "DevOps инженер, автоматизирую развертывание и CI/CD.",
     },
     {
-        "email": "gleb@teamfinder.local",
-        "name": "Глеб",
-        "surname": "Никитин",
-        "phone": "+7 900 100-10-04",
-        "github_url": "https://github.com/gleb-nikitin",
-        "about": "Python-разработчик, интересуется автоматизацией, тестами и данными.",
+        "email": "ivan@teamfinder.local",
+        "name": "Иван",
+        "surname": "Белов",
+        "phone": "+7 900 200-10-04",
+        "github_url": "https://github.com/ivan-belov",
+        "about": "Fullstack разработчик, пишу на Django и React.",
+    },
+    {
+        "email": "olga@teamfinder.local",
+        "name": "Ольга",
+        "surname": "Новикова",
+        "phone": "+7 900 200-10-05",
+        "github_url": "https://github.com/olga-novikova",
+        "about": "QA Automation, пишу тесты на Playwright и Pytest.",
     },
 ]
 
 
 PROJECTS = [
     {
-        "owner": "alisa@teamfinder.local",
-        "name": "StudyFlow",
+        "owner": "anna@teamfinder.local",
+        "name": "TaskFlow",
         "description": (
-            "Планировщик учебных спринтов для небольших команд: задачи, дедлайны, "
-            "еженедельные итоги и прозрачное распределение ответственности."
+            "Система управления задачами с канами, спринтами и аналитикой времени. "
+            "Аналог Trello для маленьких команд."
         ),
-        "github_url": "https://github.com/example/studyflow",
-        "skills": ["Django", "PostgreSQL", "REST API"],
+        "github_url": "https://github.com/example/taskflow",
+        "skills": ["Django", "Django REST", "PostgreSQL", "Redis", "Celery"],
     },
     {
-        "owner": "timur@teamfinder.local",
-        "name": "Campus Market",
+        "owner": "dmitry@teamfinder.local",
+        "name": "FaceRecog",
         "description": (
-            "Мини-маркетплейс для студенческих вещей и услуг с личными профилями, "
-            "избранным и быстрыми карточками объявлений."
+            "Сервис распознавания лиц на фотографиях. Использует OpenCV и предобученные "
+            "нейросети. Результат возвращает JSON с вероятностью."
         ),
-        "github_url": "https://github.com/example/campus-market",
-        "skills": ["React", "JavaScript", "UI"],
+        "github_url": "https://github.com/example/face-recog",
+        "skills": ["Python", "OpenCV", "TensorFlow", "FastAPI"],
     },
     {
-        "owner": "mira@teamfinder.local",
-        "name": "Pitch Room",
+        "owner": "elena@teamfinder.local",
+        "name": "DeployBot",
         "description": (
-            "Пространство для подготовки презентаций проектов: структура питча, "
-            "комментарии участников и чек-листы перед демо-днём."
+            "Telegram-бот для автоматического деплоя приложений. Поддерживает GitHub webhooks, "
+            "логирование и уведомления о статусе сборки."
         ),
-        "github_url": "https://github.com/example/pitch-room",
-        "skills": ["UX", "Copywriting", "Research"],
+        "github_url": "https://github.com/example/deploy-bot",
+        "skills": ["Python", "Docker", "GitHub API", "Telegram Bot API"],
     },
     {
-        "owner": "gleb@teamfinder.local",
-        "name": "Data Garden",
+        "owner": "ivan@teamfinder.local",
+        "name": "EventHub",
         "description": (
-            "Небольшой сервис для визуализации учебной статистики: загрузка CSV, "
-            "графики прогресса и экспорт отчётов."
+            "Платформа для поиска IT-ивентов: конференции, митапы, хакатоны. "
+            "Есть фильтрация по городу, темам и датам."
         ),
-        "github_url": "https://github.com/example/data-garden",
-        "skills": ["Python", "Pandas", "Charts"],
+        "github_url": "https://github.com/example/eventhub",
+        "skills": ["Django", "JavaScript", "Leaflet", "PostgreSQL"],
+    },
+    {
+        "owner": "olga@teamfinder.local",
+        "name": "TestGen",
+        "description": (
+            "Генератор тестовых данных для API. Позволяет создавать JSON-шаблоны "
+            "и заполнять их случайными данными по заданным правилам."
+        ),
+        "github_url": "https://github.com/example/testgen",
+        "skills": ["Python", "Pydantic", "Faker", "FastAPI"],
     },
 ]
-
 
 class Command(BaseCommand):
     help = "Creates demo TeamFinder users, projects, and skills for reviewers."

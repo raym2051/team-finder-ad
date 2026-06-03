@@ -13,5 +13,11 @@ class SkillAdmin(admin.ModelAdmin):
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ("name", "owner", "status", "created_at")
     list_filter = ("status", "skills")
-    search_fields = ("name", "description", "owner__email", "owner__name", "owner__surname")
+    search_fields = (
+        "name",
+        "description",
+        "owner__email",
+        "owner__name",
+        "owner__surname"
+    )
     filter_horizontal = ("skills", "participants")
