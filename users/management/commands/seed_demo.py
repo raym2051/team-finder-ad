@@ -9,7 +9,7 @@ DEMO_PASSWORD = "review12345"
 
 USERS = [
     {
-        "email": "anna@teamfinder.local",
+        "email": "anna@example.com",
         "name": "Анна",
         "surname": "Морозова",
         "phone": "+7 900 200-10-01",
@@ -17,7 +17,7 @@ USERS = [
         "about": "Team Lead и архитектор микросервисов. Люблю Go и Python.",
     },
     {
-        "email": "dmitry@teamfinder.local",
+        "email": "dmitry@example.com",
         "name": "Дмитрий",
         "surname": "Волков",
         "phone": "+7 900 200-10-02",
@@ -25,7 +25,7 @@ USERS = [
         "about": "ML Engineer, строю нейросети для задач компьютерного зрения.",
     },
     {
-        "email": "elena@teamfinder.local",
+        "email": "elena@example.com",
         "name": "Елена",
         "surname": "Крылова",
         "phone": "+7 900 200-10-03",
@@ -33,7 +33,7 @@ USERS = [
         "about": "DevOps инженер, автоматизирую развертывание и CI/CD.",
     },
     {
-        "email": "ivan@teamfinder.local",
+        "email": "ivan@example.com",
         "name": "Иван",
         "surname": "Белов",
         "phone": "+7 900 200-10-04",
@@ -41,7 +41,7 @@ USERS = [
         "about": "Fullstack разработчик, пишу на Django и React.",
     },
     {
-        "email": "olga@teamfinder.local",
+        "email": "olga@example.com",
         "name": "Ольга",
         "surname": "Новикова",
         "phone": "+7 900 200-10-05",
@@ -53,7 +53,7 @@ USERS = [
 
 PROJECTS = [
     {
-        "owner": "anna@teamfinder.local",
+        "owner": "anna@example.com",
         "name": "TaskFlow",
         "description": (
             "Система управления задачами с канами, спринтами и аналитикой времени. "
@@ -63,7 +63,7 @@ PROJECTS = [
         "skills": ["Django", "Django REST", "PostgreSQL", "Redis", "Celery"],
     },
     {
-        "owner": "dmitry@teamfinder.local",
+        "owner": "dmitry@example.com",
         "name": "FaceRecog",
         "description": (
             "Сервис распознавания лиц на фотографиях. Использует OpenCV и предобученные "
@@ -73,7 +73,7 @@ PROJECTS = [
         "skills": ["Python", "OpenCV", "TensorFlow", "FastAPI"],
     },
     {
-        "owner": "elena@teamfinder.local",
+        "owner": "elena@example.com",
         "name": "DeployBot",
         "description": (
             "Telegram-бот для автоматического деплоя приложений. Поддерживает GitHub webhooks, "
@@ -83,7 +83,7 @@ PROJECTS = [
         "skills": ["Python", "Docker", "GitHub API", "Telegram Bot API"],
     },
     {
-        "owner": "ivan@teamfinder.local",
+        "owner": "ivan@example.com",
         "name": "EventHub",
         "description": (
             "Платформа для поиска IT-ивентов: конференции, митапы, хакатоны. "
@@ -93,7 +93,7 @@ PROJECTS = [
         "skills": ["Django", "JavaScript", "Leaflet", "PostgreSQL"],
     },
     {
-        "owner": "olga@teamfinder.local",
+        "owner": "olga@example.com",
         "name": "TestGen",
         "description": (
             "Генератор тестовых данных для API. Позволяет создавать JSON-шаблоны "
