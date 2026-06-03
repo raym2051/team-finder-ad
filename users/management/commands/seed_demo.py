@@ -6,101 +6,69 @@ from users.models import User
 
 DEMO_PASSWORD = "review12345"
 
-
 USERS = [
     {
-        "email": "anna@example.com",
-        "name": "Анна",
-        "surname": "Морозова",
-        "phone": "+7 900 200-10-01",
-        "github_url": "https://github.com/anna-morozova",
-        "about": "Team Lead и архитектор микросервисов. Люблю Go и Python.",
+        "email": "test1@example.com",
+        "name": "Алексей",
+        "surname": "Иванов",
+        "phone": "+7 900 111-11-11",
+        "github_url": "https://github.com/test1",
+        "about": "Backend-разработчик на Django и FastAPI.",
     },
     {
-        "email": "dmitry@example.com",
-        "name": "Дмитрий",
-        "surname": "Волков",
-        "phone": "+7 900 200-10-02",
-        "github_url": "https://github.com/dmitry-volkov",
-        "about": "ML Engineer, строю нейросети для задач компьютерного зрения.",
+        "email": "test2@example.com",
+        "name": "Мария",
+        "surname": "Петрова",
+        "phone": "+7 900 222-22-22",
+        "github_url": "https://github.com/test2",
+        "about": "Frontend-разработчик, React и Vue.js.",
     },
     {
-        "email": "elena@example.com",
-        "name": "Елена",
-        "surname": "Крылова",
-        "phone": "+7 900 200-10-03",
-        "github_url": "https://github.com/elena-krylova",
-        "about": "DevOps инженер, автоматизирую развертывание и CI/CD.",
+        "email": "test3@example.com",
+        "name": "Игорь",
+        "surname": "Сидоров",
+        "phone": "+7 900 333-33-33",
+        "github_url": "https://github.com/test3",
+        "about": "Data Scientist, Python и машинное обучение.",
     },
     {
-        "email": "ivan@example.com",
-        "name": "Иван",
-        "surname": "Белов",
-        "phone": "+7 900 200-10-04",
-        "github_url": "https://github.com/ivan-belov",
-        "about": "Fullstack разработчик, пишу на Django и React.",
-    },
-    {
-        "email": "olga@example.com",
-        "name": "Ольга",
-        "surname": "Новикова",
-        "phone": "+7 900 200-10-05",
-        "github_url": "https://github.com/olga-novikova",
-        "about": "QA Automation, пишу тесты на Playwright и Pytest.",
+        "email": "test4@example.com",
+        "name": "Екатерина",
+        "surname": "Кузнецова",
+        "phone": "+7 900 444-44-44",
+        "github_url": "https://github.com/test4",
+        "about": "DevOps инженер, Docker и CI/CD.",
     },
 ]
 
-
 PROJECTS = [
     {
-        "owner": "anna@example.com",
-        "name": "TaskFlow",
-        "description": (
-            "Система управления задачами с канами, спринтами и аналитикой времени. "
-            "Аналог Trello для маленьких команд."
-        ),
-        "github_url": "https://github.com/example/taskflow",
-        "skills": ["Django", "Django REST", "PostgreSQL", "Redis", "Celery"],
+        "owner": "test1@example.com",
+        "name": "TaskMaster",
+        "description": "Умный планировщик задач с интеграцией Telegram-бота и аналитикой времени.",
+        "github_url": "https://github.com/test1/taskmaster",
+        "skills": ["Django", "PostgreSQL", "Redis", "Celery"],
     },
     {
-        "owner": "dmitry@example.com",
-        "name": "FaceRecog",
-        "description": (
-            "Сервис распознавания лиц на фотографиях. Использует OpenCV и предобученные "
-            "нейросети. Результат возвращает JSON с вероятностью."
-        ),
-        "github_url": "https://github.com/example/face-recog",
-        "skills": ["Python", "OpenCV", "TensorFlow", "FastAPI"],
-    },
-    {
-        "owner": "elena@example.com",
-        "name": "DeployBot",
-        "description": (
-            "Telegram-бот для автоматического деплоя приложений. Поддерживает GitHub webhooks, "
-            "логирование и уведомления о статусе сборки."
-        ),
-        "github_url": "https://github.com/example/deploy-bot",
-        "skills": ["Python", "Docker", "GitHub API", "Telegram Bot API"],
-    },
-    {
-        "owner": "ivan@example.com",
+        "owner": "test2@example.com",
         "name": "EventHub",
-        "description": (
-            "Платформа для поиска IT-ивентов: конференции, митапы, хакатоны. "
-            "Есть фильтрация по городу, темам и датам."
-        ),
-        "github_url": "https://github.com/example/eventhub",
-        "skills": ["Django", "JavaScript", "Leaflet", "PostgreSQL"],
+        "description": "Платформа для поиска IT-мероприятий и нетворкинга с картой и фильтрами.",
+        "github_url": "https://github.com/test2/eventhub",
+        "skills": ["React", "Django REST", "Leaflet"],
     },
     {
-        "owner": "olga@example.com",
-        "name": "TestGen",
-        "description": (
-            "Генератор тестовых данных для API. Позволяет создавать JSON-шаблоны "
-            "и заполнять их случайными данными по заданным правилам."
-        ),
-        "github_url": "https://github.com/example/testgen",
-        "skills": ["Python", "Pydantic", "Faker", "FastAPI"],
+        "owner": "test3@example.com",
+        "name": "DataViz",
+        "description": "Веб-инструмент для визуализации датасетов: загрузка CSV, графики, экспорт.",
+        "github_url": "https://github.com/test3/dataviz",
+        "skills": ["Python", "Pandas", "Plotly", "Django"],
+    },
+    {
+        "owner": "test4@example.com",
+        "name": "DeployFlow",
+        "description": "Автоматизация деплоя через GitHub Actions: линтеры, тесты, уведомления.",
+        "github_url": "https://github.com/test4/deployflow",
+        "skills": ["Python", "Docker", "GitHub Actions", "FastAPI"],
     },
 ]
 
