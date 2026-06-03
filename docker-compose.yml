@@ -1,14 +1,43 @@
 services:
   db:
     image: postgres:16
-    env_file:
-      - .env
     container_name: teamfinder_db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-teamfinder}
+      POSTGRES_USER: ${POSTGRES_USER:-teamfinder}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-teamfinder}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     restart: always
 
+  web:
+    build: .
+    container_name: teamfinder_web
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py seed_demo &&
+             python manage.py runserver 0.0.0.0:8000"
+    environment:
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-teamfinder-local-dev-key-change-me}
+      DJANGO_DEBUG: ${DJANGO_DEBUG:-True}
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS:-localhost,127.0.0.1,0.0.0.0}
+      POSTGRES_DB: ${POSTGRES_DB:-teamfinder}
+      POSTGRES_USER: ${POSTGRES_USER:-teamfinder}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-teamfinder}
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      TASK_VERSION: 3
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - media_data:/app/media
+    depends_on:
+      - db
+    restart: unless-stopped
+
 volumes:
   postgres_data:
+  media_data:

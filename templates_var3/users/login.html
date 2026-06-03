@@ -13,32 +13,22 @@
     <form method="post">
         {% csrf_token %}
 
-        {% if form.non_field_errors %}
-        <div class="error-message">
-            {% for error in form.non_field_errors %}
-            {{ error }}
-            {% endfor %}
-        </div>
-        {% endif %}
+        {{ form.non_field_errors }}
 
         <div class="form-field">
-            {{ form.username.label_tag }}
-            {{ form.username }}
-            {% if form.username.errors %}
-            <div class="error-message">{{ form.username.errors.0 }}</div>
-            {% endif %}
+            {{ form.email.label_tag }}
+            {{ form.email }}
+            {{ form.email.errors }}
         </div>
 
         <div class="form-field">
             {{ form.password.label_tag }}
             {{ form.password }}
-            {% if form.password.errors %}
-            <div class="error-message">{{ form.password.errors.0 }}</div>
-            {% endif %}
+            {{ form.password.errors }}
         </div>
 
         <button type="submit">Войти</button>
     </form>
-    <p class="auth-link">Нет аккаунта? <a href="{% url 'users:login' %}">Зарегистрироваться</a></p>
+    <p class="auth-link">Нет аккаунта? <a href="{% url 'users:register' %}">Зарегистрироваться</a></p>
 </div>
 {% endblock %}

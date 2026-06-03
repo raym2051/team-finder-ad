@@ -8,7 +8,8 @@
 <link rel="stylesheet" href="{% static 'css/skills.css' %}">
 {% endblock %}
 
-{% with page_id="project" %}
+{% block page_id %}project{% endblock %}
+
 {% block content %}
 <div class="project-container">
     <div class="project-card">
@@ -57,7 +58,7 @@
                 {% include 'includes/svg/share.html' %}
             </a>
             {% if user.id == project.owner.id %}
-                <a href="/projects/{{ project.id }}/edit" class="black-button">
+                <a href="/projects/{{ project.id }}/edit/" class="black-button">
                     {% include 'includes/svg/pen.html' %}
                     Редактировать
                 </a>
@@ -113,7 +114,7 @@
     <h3>Участники проекта (<span id="participants-count" style="display:inline">{{ project.participants.all|length }}</span>)</h3>
     <div id="participants-list" class="participants-list">
         {% for member in project.participants.all %}
-        <a href="/users/{{ member.id }}" id="participant-{{ member.id }}">
+        <a href="/users/{{ member.id }}/" id="participant-{{ member.id }}">
             <div class="participant-item">
                 {% if member.avatar %}
                     <img src="{{ member.avatar.url }}" alt="Аватар" class="participant-avatar">
@@ -135,4 +136,3 @@
     </div>
 </div>
 {% endblock %}
-{% endwith %}

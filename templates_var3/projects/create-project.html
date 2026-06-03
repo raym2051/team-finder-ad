@@ -7,11 +7,6 @@
 <link rel="stylesheet" href="{% static 'css/auth.css' %}">
 <link rel="stylesheet" href="{% static 'css/profile_edit.css' %}">
 <link rel="stylesheet" href="{% static 'css/create-project.css' %}">
-<link rel="stylesheet" href="{% static 'css/skills.css' %}">
-{% endblock %}
-
-{% block extra_js %}
-<script src="{% static 'js/project_skills.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -50,31 +45,12 @@
     </div>
     {% endif %}
 
-    <div class="project-skills">
-        <h3>Необходимые навыки</h3>
-        <div id="skills-container" class="skills-container" data-project-id="{% if is_edit %}{{ form.instance.id }}{% else %}0{% endif %}">
-            {% if is_edit %}
-                {% for skill in form.instance.skills.all %}
-                    <span class="skill-chip" data-id="{{ skill.id }}">
-                        {{ skill.name }}
-                        <button type="button" class="remove-skill-btn" aria-label="Удалить" title="Удалить">×</button>
-                    </span>
-                {% empty %}
-                    <span class="skill-empty">Навыки не указаны</span>
-                {% endfor %}
-            {% else %}
-                <span class="skill-empty">Навыки не указаны</span>
-            {% endif %}
-            <button type="button" id="add-skill-btn" class="add-skill-btn">+ Добавить навык</button>
-        </div>
-        <div id="skill-input-wrapper" class="skill-input-wrapper hidden">
-            <input type="text" id="skill-input" placeholder="Введите навык..." autocomplete="off"/>
-            <ul id="skill-suggestions" class="skill-suggestions hidden"></ul>
-        </div>
-    </div>
-
     <div class="form-actions">
-      <a href="/" class="cancel-button">Отмена</a>
+      {% if is_edit %}
+      <a href="/projects/{{ project.id }}/" class="cancel-button">Отмена</a>
+      {% else %}
+      <a href="/projects/list/" class="cancel-button">Отмена</a>
+      {% endif %}
       <button type="submit" class="save-button">{% if is_edit %}Сохранить{% else %}Опубликовать{% endif %}</button>
     </div>
   </form>

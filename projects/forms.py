@@ -1,12 +1,27 @@
 from django import forms
 
-from core.mixins import GithubURLValidationMixin
-from projects.models import Project
+from .models import Project
 
 
-class ProjectForm(GithubURLValidationMixin, forms.ModelForm):
-    """Форма создания/редактирования проекта"""
-
+class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ["title", "description", "github_url", "skills"]
+        fields = ["name", "description", "github_url", "status"]
+        labels = {
+            "name": "Название",
+            "description": "Описание",
+            "github_url": "GitHub",
+            "status": "Статус",
+        }
+        widgets = {
+            "name": forms.TextInput(attrs={"placeholder": "Например, Study Buddy"}),
+            "description": forms.Textarea(
+                attrs={
+                    "rows": 6,
+                    "placeholder": "Кого ищете, над чем работаете и чем можно помочь?",
+                }
+            ),
+            "github_url": forms.URLInput(
+                attrs={"placeholder": "https://github.com/team/project"}
+            ),
+        }

@@ -1,70 +1,63 @@
-"""Модели проектов и навыков"""
-
-from constants import (
-    MAX_PROJECT_DESCRIPTION_LENGTH,
-    MAX_PROJECT_TITLE_LENGTH,
-    PROJECT_STATUS_CHOICES,
-    PROJECT_STATUS_CLOSED,
-    PROJECT_STATUS_OPEN,
-)
 from django.conf import settings
 from django.db import models
-from django.urls import reverse
+
+from team_finder.constants import (
+    PROJECT_NAME_MAX_LENGTH,
+    SKILL_NAME_MAX_LENGTH,
+    STATUS_MAX_LENGTH,
+)
 
 
 class Skill(models.Model):
-    """Модель навыка"""
-
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(
+        "название", max_length=SKILL_NAME_MAX_LENGTH, unique=True,
+    )
 
     class Meta:
         ordering = ["name"]
+        verbose_name = "навык"
+        verbose_name_plural = "навыки"
 
     def __str__(self):
         return self.name
 
 
 class Project(models.Model):
-    """Модель проекта"""
+    STATUS_OPEN = "open"
+    STATUS_CLOSED = "closed"
+    STATUS_CHOICES = (
+        (STATUS_OPEN, "Открыт"),
+        (STATUS_CLOSED, "Закрыт"),
+    )
 
-    title = models.CharField(max_length=MAX_PROJECT_TITLE_LENGTH)
-    description = models.TextField(max_length=MAX_PROJECT_DESCRIPTION_LENGTH)
-    github_url = models.URLField(blank=True)
-    status = models.CharField(
-        max_length=20,
-        choices=PROJECT_STATUS_CHOICES,
-        default=PROJECT_STATUS_OPEN)
-    author = models.ForeignKey(
+    owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="authored_projects",
+        related_name="owned_projects",
+        verbose_name="автор",
     )
+    name = models.CharField("название", max_length=PROJECT_NAME_MAX_LENGTH)
+    description = models.TextField("описание", blank=True)
+    github_url = models.URLField("GitHub", blank=True)
+    status = models.CharField(
+        "статус",
+        max_length=STATUS_MAX_LENGTH,
+        choices=STATUS_CHOICES,
+        default=STATUS_OPEN,
+    )
+    skills = models.ManyToManyField(Skill, related_name="projects", blank=True)
     participants = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
         related_name="participating_projects",
-        blank=True)
-    skills = models.ManyToManyField(Skill, related_name="projects", blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+        blank=True,
+    )
+    created_at = models.DateTimeField("дата публикации", auto_now_add=True)
+    updated_at = models.DateTimeField("дата обновления", auto_now=True)
 
     class Meta:
         ordering = ["-created_at"]
-        verbose_name = "Project"
-        verbose_name_plural = "Projects"
+        verbose_name = "проект"
+        verbose_name_plural = "проекты"
 
     def __str__(self):
-        return self.title
-
-    def get_absolute_url(self):
-        return reverse("projects:project_detail", args=[self.id])
-
-    def is_participant(self, user):
-        """Проверка, участвует ли пользователь в проекте (оптимизированная)"""
-        if not user.is_authenticated:
-            return False
-        return self.participants.filter(id=user.id).exists()
-
-    def close(self):
-        """Закрыть проект"""
-        self.status = PROJECT_STATUS_CLOSED
-        self.save()
+        return self.name

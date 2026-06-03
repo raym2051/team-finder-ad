@@ -1,10 +1,17 @@
 """Вспомогательные функции"""
+
 import hashlib
 from io import BytesIO
-from PIL import Image, ImageDraw, ImageFont
-from django.core.files.base import ContentFile
 
-from constants import AVATAR_SIZE, AVATAR_BG_COLORS, AVATAR_FONT_SIZE, MAX_SKILLS_SEARCH_RESULTS
+from constants import (
+    AVATAR_BG_COLORS,
+    AVATAR_FONT_SIZE,
+    AVATAR_SIZE,
+    MAX_SKILLS_SEARCH_RESULTS,
+)
+from django.users.files.base import ContentFile
+from PIL import Image, ImageDraw, ImageFont
+
 from projects.models import Skill
 
 
@@ -18,22 +25,22 @@ def generate_avatar(name):
     bg_color = AVATAR_BG_COLORS[color_index]
 
     # Создаем изображение
-    image = Image.new('RGB', (AVATAR_SIZE, AVATAR_SIZE), bg_color)
+    image = Image.new("RGB", (AVATAR_SIZE, AVATAR_SIZE), bg_color)
     draw = ImageDraw.Draw(image)
 
     # Берем первую букву и переводим в верхний регистр
-    first_letter = name[0].upper() if name else '?'
+    first_letter = name[0].upper() if name else "?"
 
     # Пытаемся загрузить шрифт побольше, если нет - используем дефолтный
     try:
         # Для Linux/Mac
         font = ImageFont.truetype(
-            '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',
-            AVATAR_FONT_SIZE)
+            "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", AVATAR_FONT_SIZE
+        )
     except (OSError, IOError):  # Исправлено: конкретные исключения вместо bare except
         try:
             # Для Windows
-            font = ImageFont.truetype('arial.ttf', AVATAR_FONT_SIZE)
+            font = ImageFont.truetype("arial.ttf", AVATAR_FONT_SIZE)
         except (OSError, IOError):  # Исправлено: конкретные исключения
             # Дефолтный шрифт
             font = ImageFont.load_default()
@@ -50,10 +57,10 @@ def generate_avatar(name):
 
     # Сохраняем в BytesIO
     buffer = BytesIO()
-    image.save(buffer, format='PNG')
+    image.save(buffer, format="PNG")
     buffer.seek(0)
 
-    return ContentFile(buffer.read(), name=f'avatar_{name}.png')
+    return ContentFile(buffer.read(), name=f"avatar_{name}.png")
 
 
 def paginate_queryset(request, queryset, page_size):
@@ -61,10 +68,10 @@ def paginate_queryset(request, queryset, page_size):
     Универсальная функция для пагинации
     Возвращает (paginator, page_obj)
     """
-    from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+    from django.users.paginator import EmptyPage, PageNotAnInteger, Paginator
 
     paginator = Paginator(queryset, page_size)
-    page_number = request.GET.get('page', 1)
+    page_number = request.GET.get("page", 1)
 
     try:
         page_obj = paginator.page(page_number)
@@ -83,6 +90,8 @@ def get_skills_autocomplete(query):
     if not query:
         return []
 
-    return list(Skill.objects.filter(
-        name__istartswith=query
-    ).order_by('name')[:MAX_SKILLS_SEARCH_RESULTS])
+    return list(
+        Skill.objects.filter(name__istartswith=query).order_by("name")[
+            :MAX_SKILLS_SEARCH_RESULTS
+        ]
+    )

@@ -9,7 +9,8 @@
 <link rel="stylesheet" href="{% static 'css/skills.css' %}">
 {% endblock %}
 
-{% with page_id="profile" %}
+{% block page_id %}profile{% endblock %}
+
 {% block content %}
 <div class="profile-container">
     <div class="profile-header">
@@ -46,11 +47,11 @@
                 {% include 'includes/svg/share.html' %}
             </a>
             {% if request.user.id == user.id %}
-            <a href="/users/edit-profile" class="black-button">
+            <a href="/users/edit-profile/" class="black-button">
                 {% include 'includes/svg/pen.html' %}
                 Редактировать
             </a>
-            <a href="/projects/create-project" class="black-button">
+            <a href="/projects/create-project/" class="black-button">
                 {% include 'includes/svg/plus.html' %}
                 Добавить проект
             </a>
@@ -64,7 +65,7 @@
         {% for project in user.owned_projects.all %}
         <div class="collapsed-project-card">
             <div class="collapsed-project-card-header">
-                <h4><a href="/projects/{{ project.id }}">{{ project.name }}</a></h4>
+                <h4><a href="/projects/{{ project.id }}/">{{ project.name }}</a></h4>
                 <span class="project-status-black">
                     {% if project.status == "open" %}
                         Открыт
@@ -105,4 +106,3 @@
     </div>
 </div>
 {% endblock %}
-{% endwith %}

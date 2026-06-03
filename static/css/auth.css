@@ -82,19 +82,3 @@
     font-size: 13px;
     font-weight: 500;
 }
-
-.auth-card .error-message {
-    margin-top: 4px;
-    padding: 4px 8px;
-    border-radius: 4px;
-    background: #fdecea;
-    color: #d93025;
-    font-size: 12px;
-    font-weight: 500;
-}
-
-.auth-card .form-field {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
