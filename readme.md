@@ -119,6 +119,6 @@ TEAMFINDER_USE_SQLITE=1 python3 manage.py check
 **Roman Demcenko** (raym2051)
 
 * GitHub: https://github.com/raym2051
-* Email: [romandemcenko@example.com](mailto:romandemcenko@example.com)
+* Email: [inli.raym@yandex.ru](mailto:inli.raym@yandex.ru)
 
 © 2026 TeamFinder. Учебный проект.
