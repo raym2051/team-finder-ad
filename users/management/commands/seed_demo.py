@@ -3,7 +3,6 @@ from django.core.management.base import BaseCommand
 from projects.models import Project, Skill
 from users.models import User
 
-
 DEMO_PASSWORD = "review12345"
 
 USERS = [

@@ -1,13 +1,13 @@
-import json
 from http import HTTPStatus
+import json
 
 from django.test import TestCase
 from django.urls import reverse
 
 from projects.models import Project, Skill
-from team_finder.constants import ITEMS_PER_PAGE
 from users.models import User
 
+from team_finder.constants import ITEMS_PER_PAGE
 
 MISSING_OBJECT_ID = 999_999
 

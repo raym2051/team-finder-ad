@@ -6,12 +6,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from team_finder.constants import ITEMS_PER_PAGE
 from team_finder.pagination import paginate_queryset
 
-from .forms import (
-    EmailLoginForm,
-    ProfileEditForm,
-    RegisterForm,
-    UserPasswordChangeForm,
-)
+from .forms import EmailLoginForm, ProfileEditForm, RegisterForm, UserPasswordChangeForm
 from .models import User
 
 
@@ -20,7 +15,7 @@ def register(request):
         return redirect("projects:project_list")
 
     form = RegisterForm(request.POST or None)
-    if request.method == "POST" and form.is_valid():
+    if form.is_valid():
         form.save()
         messages.success(request, "Аккаунт создан. Теперь можно войти.")
         return redirect("users:login")
@@ -33,7 +28,7 @@ def login_view(request):
         return redirect("projects:project_list")
 
     form = EmailLoginForm(request, data=request.POST or None)
-    if request.method == "POST" and form.is_valid():
+    if form.is_valid():
         login(request, form.get_user())
         return redirect(request.GET.get("next") or "projects:project_list")
 
@@ -63,7 +58,7 @@ def edit_profile(request):
         request.FILES or None,
         instance=request.user,
     )
-    if request.method == "POST" and form.is_valid():
+    if form.is_valid():
         form.save()
         messages.success(request, "Профиль обновлён.")
         return redirect("users:profile_detail", user_id=request.user.id)
@@ -91,7 +86,7 @@ def participants_list(request):
 @login_required
 def change_password(request):
     form = UserPasswordChangeForm(request.user, request.POST or None)
-    if request.method == "POST" and form.is_valid():
+    if form.is_valid():
         user = form.save()
         update_session_auth_hash(request, user)
         messages.success(request, "Пароль изменён.")

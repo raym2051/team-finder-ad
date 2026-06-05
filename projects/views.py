@@ -58,7 +58,7 @@ def project_detail(request, project_id):
 @login_required
 def create_project(request):
     form = ProjectForm(request.POST or None)
-    if request.method == "POST" and form.is_valid():
+    if form.is_valid():
         project = form.save(commit=False)
         project.owner = request.user
         project.save()
@@ -80,7 +80,7 @@ def edit_project(request, project_id):
         )
 
     form = ProjectForm(request.POST or None, instance=project)
-    if request.method == "POST" and form.is_valid():
+    if form.is_valid():
         project = form.save()
         return redirect("projects:project_detail", project_id=project.id)
 
@@ -116,14 +116,12 @@ def toggle_participate(request, project_id):
     if project.owner_id == request.user.id:
         return json_error("owner_cannot_join", HTTPStatus.BAD_REQUEST)
 
-    if project.participants.filter(id=request.user.id).exists():
+    if is_participant := project.participants.filter(id=request.user.id).exists():
         project.participants.remove(request.user)
-        participant = False
     else:
         project.participants.add(request.user)
-        participant = True
 
-    return JsonResponse({"status": "ok", "participant": participant})
+    return JsonResponse({"status": "ok", "participant": is_participant})
 
 
 @require_GET

@@ -1,3 +1,5 @@
+import re
+
 from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import PasswordChangeForm
@@ -13,17 +15,13 @@ class RegisterForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ["name", "surname", "email", "password"]
-        labels = {
-            "name": "Имя",
-            "surname": "Фамилия",
-            "email": "Имейл",
-        }
-        widgets = {
-            "name": forms.TextInput(attrs={"placeholder": "Алиса"}),
-            "surname": forms.TextInput(attrs={"placeholder": "Соколова"}),
-            "email": forms.EmailInput(attrs={"placeholder": "alice@example.com"}),
-        }
+        fields = '__all__'
+
+    def clean_github_url(self):
+        url = self.cleaned_data.get("github_url")
+        if url and not re.match(r'^https?://github\.com/', url):
+            raise forms.ValidationError('Ссылка должна вести на GitHub')
+        return url
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -85,20 +83,18 @@ class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ["avatar", "name", "surname", "about", "phone", "github_url"]
-        labels = {
-            "avatar": "Аватар",
-            "name": "Имя",
-            "surname": "Фамилия",
-            "about": "Описание",
-            "phone": "Телефон",
-            "github_url": "GitHub",
-        }
         widgets = {
             "avatar": forms.FileInput(attrs={"class": "avatar-input"}),
             "about": forms.Textarea(attrs={"rows": 5}),
             "phone": forms.TextInput(attrs={"placeholder": "+7 900 000-00-00"}),
             "github_url": forms.URLInput(attrs={"placeholder": "https://github.com/username"}),
         }
+
+    def clean_github_url(self):
+        url = self.cleaned_data.get("github_url")
+        if url and not re.match(r'^https?://github\.com/', url):
+            raise forms.ValidationError('Ссылка должна вести на GitHub')
+        return url
 
 
 class UserPasswordChangeForm(PasswordChangeForm):

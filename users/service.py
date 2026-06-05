@@ -3,16 +3,17 @@
 import hashlib
 from io import BytesIO
 
+from django.users.files.base import ContentFile
+
+from PIL import Image, ImageDraw, ImageFont
+from projects.models import Skill
+
 from constants import (
     AVATAR_BG_COLORS,
     AVATAR_FONT_SIZE,
     AVATAR_SIZE,
     MAX_SKILLS_SEARCH_RESULTS,
 )
-from django.users.files.base import ContentFile
-from PIL import Image, ImageDraw, ImageFont
-
-from projects.models import Skill
 
 
 def generate_avatar(name):
