@@ -10,17 +10,19 @@ from .models import User
 class RegisterForm(forms.ModelForm):
     password = forms.CharField(
         label="Пароль",
-        widget=forms.PasswordInput(attrs={"placeholder": "Минимум 6 символов"}),
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder": "Минимум 6 символов"}),
     )
 
     class Meta:
         model = User
-        fields = '__all__'
+        fields = "__all__"
 
     def clean_github_url(self):
         url = self.cleaned_data.get("github_url")
-        if url and not re.match(r'^https?://github\.com/', url):
-            raise forms.ValidationError('Ссылка должна вести на GitHub')
+        if url and not re.match(r"^https?://github\.com/", url):
+            raise forms.ValidationError("Ссылка должна вести на GitHub")
         return url
 
     def save(self, commit=True):
@@ -87,13 +89,15 @@ class ProfileEditForm(forms.ModelForm):
             "avatar": forms.FileInput(attrs={"class": "avatar-input"}),
             "about": forms.Textarea(attrs={"rows": 5}),
             "phone": forms.TextInput(attrs={"placeholder": "+7 900 000-00-00"}),
-            "github_url": forms.URLInput(attrs={"placeholder": "https://github.com/username"}),
+            "github_url": forms.URLInput(
+                attrs={"placeholder": "https://github.com/username"}
+            ),
         }
 
     def clean_github_url(self):
         url = self.cleaned_data.get("github_url")
-        if url and not re.match(r'^https?://github\.com/', url):
-            raise forms.ValidationError('Ссылка должна вести на GitHub')
+        if url and not re.match(r"^https?://github\.com/", url):
+            raise forms.ValidationError("Ссылка должна вести на GitHub")
         return url
 
 

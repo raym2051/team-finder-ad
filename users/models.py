@@ -24,8 +24,7 @@ class User(AbstractUser):
     phone = models.CharField(
         "телефон",
         max_length=PHONE_MAX_LENGTH,
-        blank=True
-    )
+        blank=True)
     github_url = models.URLField("GitHub", blank=True)
 
     USERNAME_FIELD = "email"

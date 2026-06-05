@@ -45,14 +45,14 @@ def project_list(request):
 
 def project_detail(request, project_id):
     project = get_object_or_404(
-        Project.objects.select_related("owner").prefetch_related("skills", "participants"),
+        Project.objects.select_related("owner").prefetch_related(
+            "skills", "participants"
+        ),
         pk=project_id,
     )
-    return render(
-        request,
-        "projects/project-details.html",
-        {"project": project}
-    )
+    return render(request,
+                  "projects/project-details.html",
+                  {"project": project})
 
 
 @login_required
@@ -76,8 +76,7 @@ def edit_project(request, project_id):
     project = get_object_or_404(Project, pk=project_id)
     if project.owner_id != request.user.id:
         return HttpResponseForbidden(
-            "Редактировать проект может только владелец."
-        )
+            "Редактировать проект может только владелец.")
 
     form = ProjectForm(request.POST or None, instance=project)
     if form.is_valid():
@@ -116,7 +115,8 @@ def toggle_participate(request, project_id):
     if project.owner_id == request.user.id:
         return json_error("owner_cannot_join", HTTPStatus.BAD_REQUEST)
 
-    if is_participant := project.participants.filter(id=request.user.id).exists():
+    if is_participant := project.participants.filter(
+            id=request.user.id).exists():
         project.participants.remove(request.user)
     else:
         project.participants.add(request.user)

@@ -27,7 +27,8 @@ class ProjectFlowTests(TestCase):
             surname="Разработчик",
         )
 
-    def test_project_list_filters_by_required_skill_and_highlights_active_filter(self):
+    def test_project_list_filters_by_required_skill_and_highlights_active_filter(
+            self):
         django = Skill.objects.create(name="Django")
         react = Skill.objects.create(name="React")
         matching_project = Project.objects.create(
@@ -43,7 +44,9 @@ class ProjectFlowTests(TestCase):
         )
         other_project.skills.add(react)
 
-        response = self.client.get(reverse("projects:project_list"), {"skill": "Django"})
+        response = self.client.get(
+            reverse("projects:project_list"), {"skill": "Django"}
+        )
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertContains(response, "Backend Hub")
@@ -83,8 +86,11 @@ class ProjectFlowTests(TestCase):
         self.assertTrue(project.skills.filter(id=skill.id).exists())
 
         remove_response = self.client.post(
-            reverse("projects:remove_project_skill", args=[project.id, skill.id])
-        )
+            reverse(
+                "projects:remove_project_skill",
+                args=[
+                    project.id,
+                    skill.id]))
 
         self.assertEqual(remove_response.status_code, HTTPStatus.OK)
         self.assertFalse(project.skills.filter(id=skill.id).exists())
@@ -147,14 +153,22 @@ class ProjectFlowTests(TestCase):
         )
         self.client.force_login(self.member)
 
-        join_response = self.client.post(reverse("projects:toggle_participate", args=[project.id]))
+        join_response = self.client.post(
+            reverse("projects:toggle_participate", args=[project.id])
+        )
 
         self.assertEqual(join_response.status_code, HTTPStatus.OK)
-        self.assertTrue(project.participants.filter(id=self.member.id).exists())
+        self.assertTrue(
+            project.participants.filter(
+                id=self.member.id).exists())
         self.assertTrue(join_response.json()["participant"])
 
-        leave_response = self.client.post(reverse("projects:toggle_participate", args=[project.id]))
+        leave_response = self.client.post(
+            reverse("projects:toggle_participate", args=[project.id])
+        )
 
         self.assertEqual(leave_response.status_code, HTTPStatus.OK)
-        self.assertFalse(project.participants.filter(id=self.member.id).exists())
+        self.assertFalse(
+            project.participants.filter(
+                id=self.member.id).exists())
         self.assertFalse(leave_response.json()["participant"])

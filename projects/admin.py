@@ -18,6 +18,6 @@ class ProjectAdmin(admin.ModelAdmin):
         "description",
         "owner__email",
         "owner__name",
-        "owner__surname"
+        "owner__surname",
     )
     filter_horizontal = ("skills", "participants")

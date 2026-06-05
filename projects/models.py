@@ -10,7 +10,9 @@ from team_finder.constants import (
 
 class Skill(models.Model):
     name = models.CharField(
-        "название", max_length=SKILL_NAME_MAX_LENGTH, unique=True,
+        "название",
+        max_length=SKILL_NAME_MAX_LENGTH,
+        unique=True,
     )
 
     class Meta:

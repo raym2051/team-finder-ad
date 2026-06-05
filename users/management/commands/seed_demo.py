@@ -40,36 +40,43 @@ USERS = [
     },
 ]
 
-PROJECTS = [
-    {
-        "owner": "test1@example.com",
-        "name": "TaskMaster",
-        "description": "Умный планировщик задач с интеграцией Telegram-бота и аналитикой времени.",
-        "github_url": "https://github.com/test1/taskmaster",
-        "skills": ["Django", "PostgreSQL", "Redis", "Celery"],
-    },
-    {
-        "owner": "test2@example.com",
-        "name": "EventHub",
-        "description": "Платформа для поиска IT-мероприятий и нетворкинга с картой и фильтрами.",
-        "github_url": "https://github.com/test2/eventhub",
-        "skills": ["React", "Django REST", "Leaflet"],
-    },
-    {
-        "owner": "test3@example.com",
-        "name": "DataViz",
-        "description": "Веб-инструмент для визуализации датасетов: загрузка CSV, графики, экспорт.",
-        "github_url": "https://github.com/test3/dataviz",
-        "skills": ["Python", "Pandas", "Plotly", "Django"],
-    },
-    {
-        "owner": "test4@example.com",
-        "name": "DeployFlow",
-        "description": "Автоматизация деплоя через GitHub Actions: линтеры, тесты, уведомления.",
-        "github_url": "https://github.com/test4/deployflow",
-        "skills": ["Python", "Docker", "GitHub Actions", "FastAPI"],
-    },
-]
+PROJECTS = [{"owner": "test1@example.com",
+             "name": "TaskMaster",
+             "description": "Умный планировщик задач с интеграцией Telegram-бота и аналитикой времени.",
+             "github_url": "https://github.com/test1/taskmaster",
+             "skills": ["Django",
+                        "PostgreSQL",
+                        "Redis",
+                        "Celery"],
+             },
+            {"owner": "test2@example.com",
+             "name": "EventHub",
+             "description": "Платформа для поиска IT-мероприятий и нетворкинга с картой и фильтрами.",
+             "github_url": "https://github.com/test2/eventhub",
+             "skills": ["React",
+                        "Django REST",
+                        "Leaflet"],
+             },
+            {"owner": "test3@example.com",
+             "name": "DataViz",
+             "description": "Веб-инструмент для визуализации датасетов: загрузка CSV, графики, экспорт.",
+             "github_url": "https://github.com/test3/dataviz",
+             "skills": ["Python",
+                        "Pandas",
+                        "Plotly",
+                        "Django"],
+             },
+            {"owner": "test4@example.com",
+             "name": "DeployFlow",
+             "description": "Автоматизация деплоя через GitHub Actions: линтеры, тесты, уведомления.",
+             "github_url": "https://github.com/test4/deployflow",
+             "skills": ["Python",
+                        "Docker",
+                        "GitHub Actions",
+                        "FastAPI"],
+             },
+            ]
+
 
 class Command(BaseCommand):
     help = "Creates demo TeamFinder users, projects, and skills for reviewers."
