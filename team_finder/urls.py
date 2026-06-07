@@ -9,24 +9,25 @@ from projects import views as project_views
 urlpatterns = [
     path(
         "",
-        lambda request: redirect("projects:project_list")),
+        lambda request: redirect("projects:project_list"),
+    ),
     path(
         "admin/",
-        admin.site.urls),
+        admin.site.urls,
+    ),
     path(
         "users/",
-        include("users.urls")),
+        include("users.urls"),
+    ),
     path(
         "projects/",
-        include("projects.urls")),
+        include("projects.urls"),
+    ),
     path(
         "project/list/",
         project_views.project_list,
-        name="legacy_project_list"),
-    path(
-        "project/list",
-        project_views.project_list,
-        name="legacy_project_list_no_slash"),
+        name="legacy_project_list",
+    ),
 ]
 
 if settings.DEBUG:

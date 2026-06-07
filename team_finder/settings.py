@@ -131,5 +131,5 @@ AUTH_USER_MODEL = "users.User"
 # Authentication URLs
 
 LOGIN_URL = "users:login"
-LOGIN_REDIRECT_URL = "/projects/list/"
-LOGOUT_REDIRECT_URL = "/projects/list/"
+LOGIN_REDIRECT_URL = "projects:list"
+LOGOUT_REDIRECT_URL = "projects:list"

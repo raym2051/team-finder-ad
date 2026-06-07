@@ -5,9 +5,10 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.forms import PasswordChangeForm
 
 from .models import User
+from mixins import GithubURLValidationMixin
 
 
-class RegisterForm(forms.ModelForm):
+class RegisterForm(GithubURLValidationMixin, forms.ModelForm):
     password = forms.CharField(
         label="Пароль",
         widget=forms.PasswordInput(
@@ -17,13 +18,7 @@ class RegisterForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = "__all__"
-
-    def clean_github_url(self):
-        url = self.cleaned_data.get("github_url")
-        if url and not re.match(r"^https?://github\.com/", url):
-            raise forms.ValidationError("Ссылка должна вести на GitHub")
-        return url
+        fields = ['email','name', 'surname', 'phone', 'github_url']
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -81,7 +76,7 @@ class EmailLoginForm(forms.Form):
         return self.user_cache
 
 
-class ProfileEditForm(forms.ModelForm):
+class ProfileEditForm(GithubURLValidationMixin, forms.ModelForm):
     class Meta:
         model = User
         fields = ["avatar", "name", "surname", "about", "phone", "github_url"]
@@ -93,12 +88,6 @@ class ProfileEditForm(forms.ModelForm):
                 attrs={"placeholder": "https://github.com/username"}
             ),
         }
-
-    def clean_github_url(self):
-        url = self.cleaned_data.get("github_url")
-        if url and not re.match(r"^https?://github\.com/", url):
-            raise forms.ValidationError("Ссылка должна вести на GitHub")
-        return url
 
 
 class UserPasswordChangeForm(PasswordChangeForm):

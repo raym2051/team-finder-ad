@@ -7,6 +7,7 @@ from team_finder.constants import (
     USER_SURNAME_MAX_LENGTH,
 )
 from users.managers import UserManager
+from .service import generate_avatar
 
 
 class User(AbstractUser):
@@ -36,6 +37,14 @@ class User(AbstractUser):
         ordering = ["-date_joined"]
         verbose_name = "пользователь"
         verbose_name_plural = "пользователи"
+
+    def save(self, *args, **kwargs):
+        if not self.pk and not self.avatar:
+            avatar_file = generate_avatar(self.username or self.email)
+            if avatar_file:
+                self.avatar.save(avatar_file.name, avatar_file, save=False)
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.name} {self.surname}".strip() or self.email
