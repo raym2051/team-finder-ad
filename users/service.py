@@ -4,24 +4,24 @@ import hashlib
 from io import BytesIO
 
 from django.core.files.base import ContentFile
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 from PIL import Image, ImageDraw, ImageFont
-
 from projects.models import Skill
+
 from team_finder.constants import (
     AVATAR_BG_COLORS,
     AVATAR_FONT_SIZE,
     AVATAR_SIZE,
-    MAX_SKILLS_SEARCH_RESULTS,
     AVATAR_TEXT_COLOR,
+    MAX_SKILLS_SEARCH_RESULTS,
     PAGINATION_PAGE_SIZE,
 )
 
 
 def generate_avatar(name):
     """
-    Генерирует аватарку на основе имени пользователя. 
+    Генерирует аватарку на основе имени пользователя.
     Только при создании пользователя, если у него нет загруженного аватара
     """
 
@@ -75,7 +75,7 @@ def generate_avatar(name):
     image.save(buffer, format="PNG")
     buffer.seek(0)
 
-    safe_name = name.replace(' ', '_').replace('/', '_')
+    safe_name = name.replace(" ", "_").replace("/", "_")
     return ContentFile(buffer.read(), name=f"avatar_{safe_name}.png")
 
 
@@ -104,8 +104,4 @@ def get_skills_autocomplete(query):
     if not query:
         return []
 
-    return list(
-        Skill.objects.filter(name__istartswith=query).order_by("name")[
-            :MAX_SKILLS_SEARCH_RESULTS
-        ]
-    )
+    return list(Skill.objects.filter(name__istartswith=query).order_by("name")[:MAX_SKILLS_SEARCH_RESULTS])

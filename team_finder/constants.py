@@ -18,7 +18,7 @@ MAX_SKILLS_SEARCH_RESULTS = 10
 AVATAR_SIZE = 200
 AVATAR_FONT_SIZE = 120
 AVATAR_BG_COLORS = [
-    (231, 76, 60),   # красный
+    (231, 76, 60),  # красный
     (46, 204, 113),  # зелёный
     (52, 152, 219),  # синий
     (241, 196, 15),  # жёлтый

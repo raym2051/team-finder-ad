@@ -2,21 +2,19 @@ from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import PasswordChangeForm
 
-from .models import User
 from .mixins import GithubURLValidationMixin
+from .models import User
 
 
 class RegisterForm(GithubURLValidationMixin, forms.ModelForm):
     password = forms.CharField(
         label="Пароль",
-        widget=forms.PasswordInput(
-            attrs={
-                "placeholder": "Минимум 6 символов"}),
+        widget=forms.PasswordInput(attrs={"placeholder": "Минимум 6 символов"}),
     )
 
     class Meta:
         model = User
-        fields = ['email','name', 'surname', 'phone', 'github_url']
+        fields = ["email", "name", "surname", "phone", "github_url"]
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -82,9 +80,7 @@ class ProfileEditForm(GithubURLValidationMixin, forms.ModelForm):
             "avatar": forms.FileInput(attrs={"class": "avatar-input"}),
             "about": forms.Textarea(attrs={"rows": 5}),
             "phone": forms.TextInput(attrs={"placeholder": "+7 900 000-00-00"}),
-            "github_url": forms.URLInput(
-                attrs={"placeholder": "https://github.com/username"}
-            ),
+            "github_url": forms.URLInput(attrs={"placeholder": "https://github.com/username"}),
         }
 
 
