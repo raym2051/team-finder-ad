@@ -1,8 +1,8 @@
 """Миксины для переиспользования в формах"""
 
 from django import forms
-from django.users.exceptions import ValidationError
-from django.users.validators import URLValidator
+from django.core.exceptions import ValidationError
+from django.core.validators import URLValidator
 
 
 class GithubURLValidationMixin:

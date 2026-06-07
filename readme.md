@@ -90,20 +90,6 @@ python manage.py seed_demo
 python manage.py runserver
 ```
 
-## Проверка
-
-Быстрые тесты можно запустить без PostgreSQL через SQLite-переключатель:
-
-```bash
-TEAMFINDER_USE_SQLITE=1 python3 manage.py test users projects
-```
-
-Проверка конфигурации Django:
-
-```bash
-TEAMFINDER_USE_SQLITE=1 python3 manage.py check
-```
-
 ## Подсказка ревьюеру по варианту 3
 
 1. Войдите под `test1@example.com` / `review12345`.

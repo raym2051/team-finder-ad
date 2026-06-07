@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.forms import PasswordChangeForm
 
 from .models import User
-from mixins import GithubURLValidationMixin
+from .mixins import GithubURLValidationMixin
 
 
 class RegisterForm(GithubURLValidationMixin, forms.ModelForm):

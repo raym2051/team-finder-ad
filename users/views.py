@@ -8,6 +8,7 @@ from team_finder.pagination import paginate_queryset
 
 from .forms import EmailLoginForm, ProfileEditForm, RegisterForm, UserPasswordChangeForm
 from .models import User
+from .service import generate_avatar
 
 
 def register(request):
@@ -16,7 +17,14 @@ def register(request):
 
     form = RegisterForm(request.POST or None)
     if form.is_valid():
-        form.save()
+        user = form.save(commit=False)
+        user.set_password(form.cleaned_data['password1'])
+
+        avatar = generate_avatar(user.username)
+        user.avatar.save(avatar.name, avatar, save=False)
+        
+        user.save()
+        
         messages.success(request, "Аккаунт создан. Теперь можно войти.")
         return redirect("users:login")
 
