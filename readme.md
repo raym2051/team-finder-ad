@@ -90,6 +90,15 @@ python manage.py seed_demo
 python manage.py runserver
 ```
 
+## Для продакшена
+
+Перед деплоем в продакшен обязательно:
+
+1. Установите `DEBUG=False` в `.env`
+2. Задайте свой `DJANGO_SECRET_KEY`
+3. Настройте `ALLOWED_HOSTS`
+4. Соберите статистику: `python manage.py collectstatic`
+
 ## Подсказка ревьюеру по варианту 3
 
 1. Войдите под `test1@example.com` / `review12345`.

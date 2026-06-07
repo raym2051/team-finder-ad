@@ -28,6 +28,12 @@ def generate_avatar(name):
     if not name:
         name = "User"
 
+    parts = name.strip().split()
+    if parts:
+        first_letter = parts[0][0].upper()
+    else:
+        first_letter = "U"
+
     # Определяем цвет фона на основе хеша имени
     hash_object = hashlib.md5(name.encode())
     color_index = int(hash_object.hexdigest(), 16) % len(AVATAR_BG_COLORS)
@@ -36,38 +42,32 @@ def generate_avatar(name):
     image = Image.new("RGB", (AVATAR_SIZE, AVATAR_SIZE), bg_color)
     draw = ImageDraw.Draw(image)
 
-    first_letter = name[0].upper()
-
     # Пытаемся загрузить шрифт побольше
-    try:
-        # Для Linux/Mac
-        font = ImageFont.truetype(
-            "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", AVATAR_FONT_SIZE
-        )
-    except (OSError, IOError):
+    font = None
+    for font_path in [
+        "/System/Library/Fonts/Helvetica.ttc",  # macOS
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",  # Linux
+        "arial.ttf",  # Windows
+    ]:
         try:
-            # Для Windows
-            font = ImageFont.truetype("arial.ttf", AVATAR_FONT_SIZE)
+            font = ImageFont.truetype(font_path, AVATAR_FONT_SIZE)
+            break
         except (OSError, IOError):
-            # Дефолтный шрифт (будет маленьким)
-            font = ImageFont.load_default()
-            # Для дефолтного шрифта используем упрощённое позиционирование
-            x = AVATAR_SIZE // 3
-            y = AVATAR_SIZE // 3
-            draw.text((x, y), first_letter, AVATAR_TEXT_COLOR, font=font)
-            
-            buffer = BytesIO()
-            image.save(buffer, format="PNG")
-            buffer.seek(0)
+            continue
 
-            return ContentFile(buffer.read(), name=f"avatar_{name}.png")
-
-    # Рассчитываем позицию для центрирования текста (для нормальных шрифтов)
-    bbox = draw.textbbox((0, 0), first_letter, font=font)
-    text_width = bbox[2] - bbox[0]
-    text_height = bbox[3] - bbox[1]
-    x = (AVATAR_SIZE - text_width) // 2
-    y = (AVATAR_SIZE - text_height) // 2
+    # Рисуем букву
+    if font is None:
+        # Дефолтный шрифт
+        font = ImageFont.load_default()
+        x = AVATAR_SIZE // 3
+        y = AVATAR_SIZE // 3
+    else:
+        # Центрируем для нормального шрифта
+        bbox = draw.textbbox((0, 0), first_letter, font=font)
+        text_width = bbox[2] - bbox[0]
+        text_height = bbox[3] - bbox[1]
+        x = (AVATAR_SIZE - text_width) // 2
+        y = (AVATAR_SIZE - text_height) // 2
 
     draw.text((x, y), first_letter, fill=AVATAR_TEXT_COLOR, font=font)
 
@@ -75,7 +75,8 @@ def generate_avatar(name):
     image.save(buffer, format="PNG")
     buffer.seek(0)
 
-    return ContentFile(buffer.read(), name=f"avatar_{name}.png")
+    safe_name = name.replace(' ', '_').replace('/', '_')
+    return ContentFile(buffer.read(), name=f"avatar_{safe_name}.png")
 
 
 def paginate_queryset(request, queryset, page_size=PAGINATION_PAGE_SIZE):

@@ -56,6 +56,13 @@ class Project(models.Model):
     created_at = models.DateTimeField("дата публикации", auto_now_add=True)
     updated_at = models.DateTimeField("дата обновления", auto_now=True)
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        unique_skills = set(self.skills.all())
+        if len(unique_skills) != self.skills.count():
+            self.skills.set(unique_skills)
+
     class Meta:
         ordering = ["-created_at"]
         verbose_name = "проект"

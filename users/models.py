@@ -33,18 +33,46 @@ class User(AbstractUser):
 
     objects = UserManager()
 
+    def save(self, *args, **kwargs):
+        # Проверяем, изменилось ли имя (только для существующего пользователя)
+        name_changed = False
+        
+        if self.pk:
+            try:
+                old = User.objects.get(pk=self.pk)
+                if old.name != self.name or old.surname != self.surname:
+                    name_changed = True
+            except User.DoesNotExist:
+                pass
+        
+        # Если имя изменилось — обновляем аватарку
+        if name_changed and self.pk:
+            if self.avatar:
+                self.avatar.delete(save=False)
+            
+            full_name = f"{self.name} {self.surname}".strip()
+            name_for_avatar = full_name if full_name else self.email or "User"
+            
+            avatar_file = generate_avatar(name_for_avatar)
+            if avatar_file:
+                self.avatar.save(avatar_file.name, avatar_file, save=False)
+        
+        # Создание нового пользователя
+        if not self.pk and not self.avatar:
+            full_name = f"{self.name} {self.surname}".strip()
+            name_for_avatar = full_name if full_name else self.email or "User"
+            
+            avatar_file = generate_avatar(name_for_avatar)
+            if avatar_file:
+                self.avatar.save(avatar_file.name, avatar_file, save=False)
+        
+        super().save(*args, **kwargs)
+
     class Meta:
         ordering = ["-date_joined"]
         verbose_name = "пользователь"
         verbose_name_plural = "пользователи"
 
-    def save(self, *args, **kwargs):
-        if not self.pk and not self.avatar:
-            avatar_file = generate_avatar(self.username or self.email)
-            if avatar_file:
-                self.avatar.save(avatar_file.name, avatar_file, save=False)
-
-        super().save(*args, **kwargs)
-
     def __str__(self):
         return f"{self.name} {self.surname}".strip() or self.email
+

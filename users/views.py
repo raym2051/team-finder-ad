@@ -18,7 +18,7 @@ def register(request):
     form = RegisterForm(request.POST or None)
     if form.is_valid():
         user = form.save(commit=False)
-        user.set_password(form.cleaned_data['password1'])
+        user.set_password(form.cleaned_data['password'])
 
         avatar = generate_avatar(user.username)
         user.avatar.save(avatar.name, avatar, save=False)
